@@ -34,9 +34,8 @@ public class OI {
         pilotButtonB.whenPressed(new TimedGearbox());
         
         pilotButtonA.close();
-        pilotButtonB.close();
         pilotButtonY.close();
-    
+        pilotButtonB.close();
     }
 
     public Joystick getPilotController() {
