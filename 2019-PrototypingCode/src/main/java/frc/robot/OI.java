@@ -31,7 +31,11 @@ public class OI {
         pilotButtonY.whileHeld(new UpIntake());
         
         Button pilotButtonB = new JoystickButton(pilotController, RobotMap.joystickButtonB);
-		pilotButtonB.whenPressed(new TimedGearbox());
+        pilotButtonB.whenPressed(new TimedGearbox());
+        
+        pilotButtonA.close();
+        pilotButtonB.close();
+        pilotButtonY.close();
     
     }
 

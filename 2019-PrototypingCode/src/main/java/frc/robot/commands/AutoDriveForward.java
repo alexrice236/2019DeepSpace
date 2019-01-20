@@ -62,7 +62,6 @@ public class AutoDriveForward extends PIDCommand {
 
    @Override
    protected void usePIDOutput(double output) {
-     // TODO Auto-generated method stub
      output = Math.min(output, 0.5);
      output = Math.max(output, -0.5);
      
