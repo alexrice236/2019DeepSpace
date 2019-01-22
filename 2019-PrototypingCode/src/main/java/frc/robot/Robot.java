@@ -60,7 +60,9 @@ public class Robot extends TimedRobot {
     oi = new OI();
 
     autoChooser = new SendableChooser<>();
-    autoChooser.setDefaultOption("Drive forward 6 feet", new AutoDriveForward(74));
+    autoChooser.addOption("Drive forward 6 feet", new AutoDriveForward(74));
+    autoChooser.addOption("Pass HAB line (lvl. 1)", new AutoDriveForward(48));
+    autoChooser.addOption("Pass HAB line (lvl. 2)", new AutoDriveForward(100));
     
     SmartDashboard.putData(autoChooser);
 
