@@ -27,10 +27,6 @@ import frc.robot.subsystems.Intake;
  * project.
  */
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   public static Intake intake;
   public static Drivetrain drivetrain;
@@ -50,17 +46,15 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
-  
+
     intake = new Intake();
     drivetrain = new Drivetrain();
 
     oi = new OI();
 
     autoChooser = new SendableChooser<>();
-    autoChooser.addOption("Drive forward 6 feet", new AutoDriveForward(74));
+
+    autoChooser.setDefaultOption("Drive forward 6 feet", new AutoDriveForward(74));
     autoChooser.addOption("Pass HAB line (lvl. 1)", new AutoDriveForward(48));
     autoChooser.addOption("Pass HAB line (lvl. 2)", new AutoDriveForward(100));
     
@@ -107,9 +101,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
   
     drivetrain.resetEncoders();
     autoChooser.getSelected().start();

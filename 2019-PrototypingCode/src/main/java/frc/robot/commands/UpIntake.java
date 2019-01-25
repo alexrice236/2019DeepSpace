@@ -11,9 +11,12 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class UpIntake extends Command {
-  public UpIntake() {
+  
+  private static double time = 3;
+  
 
-    requires(Robot.intake);
+  public UpIntake(){
+    super(time);
   }
 
   // Called just before this Command runs the first time
@@ -24,21 +27,21 @@ public class UpIntake extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.intake.intakeUp();
+    Robot.intake.intakeMotor.set(.8);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return isTimedOut();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
     Robot.intake.intakeStop();
-  }
 
+  }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
