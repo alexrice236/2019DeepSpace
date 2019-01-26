@@ -7,16 +7,19 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 import frc.robot.Robot;
 
-public class UpIntake extends Command {
+/**
+ * Add your docs here.
+ */
+public class HatchIntakeDown extends TimedCommand {
   
   private static double time = 3;
-  
 
-  public UpIntake(){
+  public HatchIntakeDown() {
     super(time);
+    
   }
 
   // Called just before this Command runs the first time
@@ -27,20 +30,18 @@ public class UpIntake extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.intake.intakeMotor.set(.8);
+    Robot.intake.intakeMotor.set(-.8);
   }
 
-  // Make this return true when this Command no longer needs to run execute()
+  // Called once after timeout
   @Override
   protected boolean isFinished() {
     return isTimedOut();
   }
 
-  // Called once after isFinished returns true
   @Override
   protected void end() {
     Robot.intake.intakeStop();
-
   }
 
   // Called when another command which requires one or more of the same

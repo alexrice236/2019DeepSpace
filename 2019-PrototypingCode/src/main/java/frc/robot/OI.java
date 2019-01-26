@@ -10,8 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.DownIntake;
-import frc.robot.commands.UpIntake;
+import frc.robot.commands.HatchIntakeDown;
+import frc.robot.commands.HatchIntakeUp;
 
 /**
  * Add your docs here.
@@ -24,10 +24,10 @@ public class OI {
         pilotController = new Joystick(0);
     
         Button pilotButtonA = new JoystickButton(pilotController, RobotMap.joystickButtonA);
-        pilotButtonA.whenPressed(new DownIntake());
+        pilotButtonA.whenPressed(new HatchIntakeDown());
         
         Button pilotButtonY = new JoystickButton(pilotController, RobotMap.joystickButtonY);
-        pilotButtonY.whenPressed(new UpIntake());
+        pilotButtonY.whenPressed(new HatchIntakeUp());
         
 
         
