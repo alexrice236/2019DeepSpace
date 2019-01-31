@@ -17,7 +17,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoDriveForward;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.HatchIntake;
+import frc.robot.subsystems.IntakeExtender;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -28,8 +30,9 @@ import frc.robot.subsystems.Intake;
  */
 public class Robot extends TimedRobot {
 
-  public static Intake intake;
+  public static HatchIntake hatchIntake;
   public static Drivetrain drivetrain;
+  public static IntakeExtender intakeExtender;
 
   public static OI oi;
 
@@ -47,10 +50,12 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 
-    intake = new Intake();
+    hatchIntake = new HatchIntake();
     drivetrain = new Drivetrain();
 
     oi = new OI();
+
+    intakeExtender = new IntakeExtender();
 
     autoChooser = new SendableChooser<>();
 

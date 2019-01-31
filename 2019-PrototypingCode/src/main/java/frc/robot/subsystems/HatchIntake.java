@@ -16,10 +16,9 @@ import com.ctre.phoenix.motorcontrol.can.*;
 /**
  * Add your docs here.
  */
-public class Intake extends Subsystem {
+public class HatchIntake extends Subsystem {
   
-  public WPI_TalonSRX intakeMotor = new WPI_TalonSRX(RobotMap.intakeMotor);
-
+  public WPI_TalonSRX hatchIntakeMotor = new WPI_TalonSRX(RobotMap.hatchIntakeMotor);
 
   @Override
   public void initDefaultCommand() {
@@ -27,15 +26,15 @@ public class Intake extends Subsystem {
   }
 
   public void intakeUp() {
-    Robot.intake.intakeMotor.set(-.8);
+    Robot.hatchIntake.hatchIntakeMotor.set(-.8);
   }
 
   public void intakeDown() {
-    Robot.intake.intakeMotor.set(.8);
+    Robot.hatchIntake.hatchIntakeMotor.set(.8);
   }
 
   public void intakeStop() {
-  Robot.intake.intakeMotor.set(0);
+  Robot.hatchIntake.hatchIntakeMotor.set(0);
 }
 
 }

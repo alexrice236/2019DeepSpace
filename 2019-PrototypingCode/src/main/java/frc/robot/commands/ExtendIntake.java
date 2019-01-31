@@ -7,45 +7,59 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.PIDCommand;
 import frc.robot.Robot;
 
-public class HatchIntakeUp extends TimedCommand {
-  
-  private static double time = 3;
+public class ExtendIntake extends PIDCommand {
 
-  public HatchIntakeUp(){
-    super(time);
+  private double intakeRotations;
+
+  public ExtendIntake(double intakeRotations) {
+   super(1, 0, 0);
+   requires(Robot.intakeExtender);
+    	
+    	getPIDController().setAbsoluteTolerance(.1);
+    	getPIDController().setSetpoint(intakeRotations);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    super.initialize();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.hatchIntake.intakeUp();
+    getPIDController().enable();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return getPIDController().onTarget();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.hatchIntake.intakeStop();
-
+    Robot.intakeExtender.stopExtension();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
+  }
+
+  @Override
+  protected double returnPIDInput() {
+    intakeRotations = Robot.intakeExtender.getExtenderEncoderPosition()/4096;
+    return intakeRotations;
+  }
+
+  @Override
+  protected void usePIDOutput(double output) {
+    Robot.intakeExtender.hatchIntakeExtensionMotor.set(output);
   }
 }

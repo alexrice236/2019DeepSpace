@@ -30,7 +30,7 @@ public class HatchIntakeDown extends TimedCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.intake.intakeMotor.set(-.8);
+    Robot.hatchIntake.intakeDown();
   }
 
   // Called once after timeout
@@ -41,7 +41,7 @@ public class HatchIntakeDown extends TimedCommand {
 
   @Override
   protected void end() {
-    Robot.intake.intakeStop();
+    Robot.hatchIntake.intakeStop();
   }
 
   // Called when another command which requires one or more of the same
