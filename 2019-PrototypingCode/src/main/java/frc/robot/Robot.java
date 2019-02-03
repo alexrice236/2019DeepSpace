@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoDriveForward;
+import frc.robot.subsystems.CargoIntake;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.HatchIntake;
 import frc.robot.subsystems.IntakeExtender;
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot {
   public static HatchIntake hatchIntake;
   public static Drivetrain drivetrain;
   public static IntakeExtender intakeExtender;
+  public static CargoIntake cargoIntake;
 
   public static OI oi;
 
@@ -52,10 +54,10 @@ public class Robot extends TimedRobot {
 
     hatchIntake = new HatchIntake();
     drivetrain = new Drivetrain();
+    intakeExtender = new IntakeExtender();
+    cargoIntake = new CargoIntake();
 
     oi = new OI();
-
-    intakeExtender = new IntakeExtender();
 
     autoChooser = new SendableChooser<>();
 

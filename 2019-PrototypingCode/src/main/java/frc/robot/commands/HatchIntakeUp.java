@@ -38,7 +38,7 @@ public class HatchIntakeUp extends TimedCommand {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.hatchIntake.intakeStop();
+    Robot.hatchIntake.hatchIntakeStop();
 
   }
 

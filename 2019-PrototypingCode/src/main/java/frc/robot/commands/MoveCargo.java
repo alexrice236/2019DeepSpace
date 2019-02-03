@@ -7,19 +7,14 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
-/**
- * Add your docs here.
- */
-public class HatchIntakeDown extends TimedCommand {
-  
-  private static double time = 3;
-
-  public HatchIntakeDown() {
-    super(time);
-    
+public class MoveCargo extends Command {
+  public MoveCargo() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
@@ -30,18 +25,19 @@ public class HatchIntakeDown extends TimedCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.hatchIntake.intakeDown();
+    Robot.cargoIntake.cargoIntakeMotor.set(Robot.oi.getcoPilotController().getRawAxis(RobotMap.rightJoystickYAxis));
   }
 
-  // Called once after timeout
+  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return false;
   }
 
+  // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.hatchIntake.hatchIntakeStop();
+    Robot.cargoIntake.cargoIntakeStop();
   }
 
   // Called when another command which requires one or more of the same

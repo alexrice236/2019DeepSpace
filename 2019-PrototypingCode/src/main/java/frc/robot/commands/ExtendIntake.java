@@ -12,7 +12,7 @@ import frc.robot.Robot;
 
 public class ExtendIntake extends PIDCommand {
 
-  private double intakeRotations;
+  private double currentIntakeRotations;
 
   public ExtendIntake(double intakeRotations) {
    super(1, 0, 0);
@@ -50,12 +50,13 @@ public class ExtendIntake extends PIDCommand {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 
   @Override
   protected double returnPIDInput() {
-    intakeRotations = Robot.intakeExtender.getExtenderEncoderPosition()/4096;
-    return intakeRotations;
+    currentIntakeRotations = Robot.intakeExtender.getExtenderEncoderPosition()/4096;
+    return currentIntakeRotations;
   }
 
   @Override

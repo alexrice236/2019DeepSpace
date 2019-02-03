@@ -7,34 +7,35 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.Robot;
-import frc.robot.RobotMap;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import com.ctre.phoenix.motorcontrol.can.*;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
-public class HatchIntake extends Subsystem {
+public class CargoIntake extends Subsystem {
   
-  public WPI_TalonSRX hatchIntakeMotor = new WPI_TalonSRX(RobotMap.hatchIntakeMotor);
+  public WPI_TalonSRX cargoIntakeMotor = new WPI_TalonSRX(RobotMap.cargoIntakeMotor);
+  public WPI_TalonSRX cargoExtensionMotor = new WPI_TalonSRX(RobotMap.cargoExtensionMotor);
+
+  public CargoIntake(){
+    configureTalons();
+  }
 
   @Override
   public void initDefaultCommand() {
-   
   }
 
-  public void intakeUp() {
-    Robot.hatchIntake.hatchIntakeMotor.set(-.8);
+  public void cargoIntakeStop() {
+    cargoExtensionMotor.set(0);
+    cargoIntakeMotor.set(0);
   }
 
-  public void intakeDown() {
-    Robot.hatchIntake.hatchIntakeMotor.set(.8);
+
+  private void configureTalons() {
+		cargoIntakeMotor.configClosedloopRamp(.1, 0);
+		cargoExtensionMotor.configClosedloopRamp(.1, 0);
   }
-
-  public void hatchIntakeStop() {
-  Robot.hatchIntake.hatchIntakeMotor.set(0);
-}
-
 }
