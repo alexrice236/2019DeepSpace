@@ -8,9 +8,12 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import frc.robot.commands.MoveCargo;
 
 /**
  * Add your docs here.
@@ -18,24 +21,25 @@ import frc.robot.RobotMap;
 public class CargoIntake extends Subsystem {
   
   public WPI_TalonSRX cargoIntakeMotor = new WPI_TalonSRX(RobotMap.cargoIntakeMotor);
-  public WPI_TalonSRX cargoExtensionMotor = new WPI_TalonSRX(RobotMap.cargoExtensionMotor);
+  public CANSparkMax cargoExtensionMotor = new CANSparkMax(RobotMap.cargoExtensionMotor, MotorType.kBrushless);
 
   public CargoIntake(){
-    configureTalons();
+    configureControllers();
   }
 
   @Override
   public void initDefaultCommand() {
+    setDefaultCommand(new MoveCargo());
   }
 
   public void cargoIntakeStop() {
-    cargoExtensionMotor.set(0);
     cargoIntakeMotor.set(0);
+    cargoExtensionMotor.set(0);
   }
 
 
-  private void configureTalons() {
-		cargoIntakeMotor.configClosedloopRamp(.1, 0);
-		cargoExtensionMotor.configClosedloopRamp(.1, 0);
+  private void configureControllers() {
+    cargoIntakeMotor.configClosedloopRamp(.1, 0);
+    cargoExtensionMotor.setRampRate(.1);
   }
 }

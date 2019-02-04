@@ -43,10 +43,10 @@ public class Drivetrain extends Subsystem {
   }
 
   private void configureTalons() {
-		leftFrontMotor.configClosedloopRamp(.1, 0);
-		leftBackMotor.configClosedloopRamp(.1, 0);
-		rightFrontMotor.configClosedloopRamp(.1, 0);
-    rightBackMotor.configClosedloopRamp(.1, 0);
+		leftFrontMotor.configClosedloopRamp(1800, 0);
+		leftBackMotor.configClosedloopRamp(1800, 0);
+		rightFrontMotor.configClosedloopRamp(1800, 0);
+    rightBackMotor.configClosedloopRamp(1800, 0);
   }
 
   public void stopDrive(){

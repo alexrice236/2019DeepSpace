@@ -12,9 +12,9 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class MoveCargo extends Command {
+  
   public MoveCargo() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.cargoIntake);
   }
 
   // Called just before this Command runs the first time
@@ -26,6 +26,7 @@ public class MoveCargo extends Command {
   @Override
   protected void execute() {
     Robot.cargoIntake.cargoIntakeMotor.set(Robot.oi.getcoPilotController().getRawAxis(RobotMap.rightJoystickYAxis));
+    Robot.cargoIntake.cargoExtensionMotor.set(Robot.oi.getcoPilotController().getRawAxis(RobotMap.leftJoystickYAxis));
   }
 
   // Make this return true when this Command no longer needs to run execute()

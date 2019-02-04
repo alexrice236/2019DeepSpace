@@ -18,8 +18,8 @@ public class RobotMap {
 	public static final int rightBackMotor 	= 12;
 	public static final int rightFrontMotor = 13;
 	public static final int hatchIntakeExtensionMotor = 14;
-	public static final int cargoIntakeMotor = 15;
-	public static final int cargoExtensionMotor = 16;
+	public static final int cargoExtensionMotor = 15;
+	public static final int cargoIntakeMotor = 16;
 	public static final int hatchIntakeMotor = 17;
 
     public static final int leftJoystickYAxis 	= 1;

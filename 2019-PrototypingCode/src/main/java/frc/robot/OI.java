@@ -39,8 +39,6 @@ public class OI {
         
         Button pilotButtonB = new JoystickButton(pilotController, RobotMap.joystickButtonY);
         pilotButtonB.whenPressed(new RetractIntake(-3));
-        
-        
 
         
         

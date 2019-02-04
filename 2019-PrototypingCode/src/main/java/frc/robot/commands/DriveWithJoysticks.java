@@ -14,8 +14,6 @@ import frc.robot.RobotMap;
 public class DriveWithJoysticks extends Command {
   public DriveWithJoysticks() {
     requires(Robot.drivetrain);
-    
-    
   }
 
   // Called just before this Command runs the first time
