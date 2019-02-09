@@ -12,15 +12,15 @@ import frc.robot.Robot;
 
 public class RetractIntake extends PIDCommand {
   
-  private double currentIntakeRotations;
+  private double currentActuatorPosition;
   
-  public RetractIntake(double intakeRotations) {
-    super(1,0,0);
+  public RetractIntake(double position) {
+    super(5,0,-5);
     requires(Robot.intakeExtender);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     getPIDController().setAbsoluteTolerance(0.1);
-    getPIDController().setSetpoint(intakeRotations);
+    getPIDController().setSetpoint(position);
 
   }
 
@@ -46,12 +46,14 @@ public class RetractIntake extends PIDCommand {
   @Override
   protected void end() {
     Robot.intakeExtender.stopExtension();
+    getPIDController().disable();
+    super.end();
   }
   
   @Override
   protected double returnPIDInput() {
-    currentIntakeRotations = Robot.intakeExtender.getExtenderEncoderPosition() / 4096;
-    return currentIntakeRotations;
+    currentActuatorPosition = Robot.intakeExtender.getActuatorPosition();
+    return currentActuatorPosition;
   }
 
   @Override

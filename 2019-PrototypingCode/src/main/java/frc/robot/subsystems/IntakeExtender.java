@@ -7,8 +7,8 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -20,21 +20,20 @@ public class IntakeExtender extends Subsystem {
 
   public WPI_TalonSRX hatchIntakeExtensionMotor = new WPI_TalonSRX(RobotMap.hatchIntakeExtensionMotor);
 
+
   public IntakeExtender() {
    configureTalon();
   }
 
   private void configureTalon() {
     hatchIntakeExtensionMotor.configClosedloopRamp(.1, 0);
-    hatchIntakeExtensionMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-    hatchIntakeExtensionMotor.setSelectedSensorPosition(0, 0, 0);
   }
   @Override
   public void initDefaultCommand() {
   }
 
-  public double getExtenderEncoderPosition() {
-		return hatchIntakeExtensionMotor.getSelectedSensorPosition(0);
+  public double getActuatorPosition() {
+		return Robot.actuatorPosition.getVoltage();
 		
   }
   

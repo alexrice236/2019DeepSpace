@@ -28,17 +28,19 @@ public class OI {
         pilotController = new Joystick(0);
         coPilotController = new Joystick(1);
     
+        //  8==========D
+
         Button pilotButtonA = new JoystickButton(pilotController, RobotMap.joystickButtonA);
         pilotButtonA.whenPressed(new HatchIntakeDown());
         
         Button pilotButtonY = new JoystickButton(pilotController, RobotMap.joystickButtonY);
         pilotButtonY.whenPressed(new HatchIntakeUp());
 
-        Button pilotButtonX = new JoystickButton(pilotController, RobotMap.joystickButtonA);
-        pilotButtonX.whenPressed(new ExtendIntake(3));
+        Button pilotButtonX = new JoystickButton(pilotController, RobotMap.joystickButtonX);
+        pilotButtonX.whenPressed(new ExtendIntake(2.6));
         
-        Button pilotButtonB = new JoystickButton(pilotController, RobotMap.joystickButtonY);
-        pilotButtonB.whenPressed(new RetractIntake(-3));
+        Button pilotButtonB = new JoystickButton(pilotController, RobotMap.joystickButtonB);
+        pilotButtonB.whenPressed(new RetractIntake(1));
 
         
         

@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSink;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -44,6 +45,7 @@ public class Robot extends TimedRobot {
 
   public SendableChooser<Command> autoChooser;
 
+  public static AnalogInput actuatorPosition;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -61,11 +63,15 @@ public class Robot extends TimedRobot {
 
     autoChooser = new SendableChooser<>();
 
+    actuatorPosition = new AnalogInput(0);
+
+
     autoChooser.setDefaultOption("Drive forward 6 feet", new AutoDriveForward(74));
     autoChooser.addOption("Pass HAB line (lvl. 1)", new AutoDriveForward(48));
     autoChooser.addOption("Pass HAB line (lvl. 2)", new AutoDriveForward(100));
     
     SmartDashboard.putData(autoChooser);
+    SmartDashboard.putData(actuatorPosition);
 
     frontCamera = CameraServer.getInstance().startAutomaticCapture(RobotMap.frontCamera);
 		frontCamera.setResolution(40, 40);

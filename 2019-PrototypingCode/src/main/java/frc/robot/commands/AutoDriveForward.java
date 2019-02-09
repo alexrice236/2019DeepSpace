@@ -17,7 +17,7 @@ public class AutoDriveForward extends PIDCommand {
   private double Circumference = 6 * Math.PI;
 
   public AutoDriveForward(double distance) {
-    super(12,0,0);
+    super(12,0,-5);
     requires(Robot.drivetrain);
 
     getPIDController().setAbsoluteTolerance(0.1);

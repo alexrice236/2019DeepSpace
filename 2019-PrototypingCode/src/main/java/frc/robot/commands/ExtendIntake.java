@@ -12,14 +12,14 @@ import frc.robot.Robot;
 
 public class ExtendIntake extends PIDCommand {
 
-  private double currentIntakeRotations;
+  private double currentActuatorPosition;
 
-  public ExtendIntake(double intakeRotations) {
-   super(1, 0, 0);
+  public ExtendIntake(double position) {
+   super(5, 0, -5);
    requires(Robot.intakeExtender);
     	
     	getPIDController().setAbsoluteTolerance(.1);
-    	getPIDController().setSetpoint(intakeRotations);
+    	getPIDController().setSetpoint(position);
   }
 
   // Called just before this Command runs the first time
@@ -51,12 +51,14 @@ public class ExtendIntake extends PIDCommand {
   @Override
   protected void interrupted() {
     end();
+    getPIDController().disable();
+    super.end();
   }
 
   @Override
   protected double returnPIDInput() {
-    currentIntakeRotations = Robot.intakeExtender.getExtenderEncoderPosition()/4096;
-    return currentIntakeRotations;
+    currentActuatorPosition = Robot.intakeExtender.getActuatorPosition();
+    return currentActuatorPosition;
   }
 
   @Override
