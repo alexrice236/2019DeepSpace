@@ -31,13 +31,12 @@ public class IntakeExtender extends Subsystem {
   @Override
   public void initDefaultCommand() {
   }
-
-  public double getActuatorPosition() {
-		return Robot.actuatorPosition.getVoltage();
-		
-  }
   
   public void stopExtension(){
     Robot.intakeExtender.hatchIntakeExtensionMotor.set(0);
+  }
+
+  public double getActuatorPosition(){
+    return Robot.actuatorPosition.getVoltage();
   }
 }

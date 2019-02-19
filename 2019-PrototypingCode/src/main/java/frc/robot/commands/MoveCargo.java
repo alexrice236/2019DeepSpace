@@ -9,7 +9,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 
 public class MoveCargo extends Command {
   
@@ -25,8 +24,8 @@ public class MoveCargo extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.cargoIntake.cargoIntakeMotor.set(Robot.oi.getcoPilotController().getRawAxis(RobotMap.rightJoystickYAxis));
-    Robot.cargoIntake.cargoExtensionMotor.set(Robot.oi.getcoPilotController().getRawAxis(RobotMap.leftJoystickYAxis));
+    Robot.cargoIntake.intakeCargo();
+    Robot.cargoIntake.checkCargoLimits();
   }
 
   // Make this return true when this Command no longer needs to run execute()

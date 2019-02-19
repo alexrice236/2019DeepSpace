@@ -17,12 +17,11 @@ public class AutoDriveForward extends PIDCommand {
   private double Circumference = 6 * Math.PI;
 
   public AutoDriveForward(double distance) {
-    super(12,0,-5);
+    super(10, 0, -5);
     requires(Robot.drivetrain);
 
     getPIDController().setAbsoluteTolerance(0.1);
     getPIDController().setSetpoint(distance);
-
   }
 
   // Called just before this Command runs the first time
@@ -65,7 +64,6 @@ public class AutoDriveForward extends PIDCommand {
      output = Math.max(output, -0.5);
      
      Robot.drivetrain.tankDrive(output, output);
-     
    }
 
   // Called when another command which requires one or more of the same

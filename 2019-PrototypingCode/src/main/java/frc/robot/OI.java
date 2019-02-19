@@ -14,40 +14,48 @@ import frc.robot.commands.ExtendIntake;
 import frc.robot.commands.HatchIntakeDown;
 import frc.robot.commands.HatchIntakeUp;
 import frc.robot.commands.RetractIntake;
+import frc.robot.commands.SwapDriveDirection;
+import frc.robot.commands.VisionCommand;
 
 
 /**
  * Add your docs here.
  */
 public class OI {
-
+    
     private Joystick pilotController;
     private Joystick coPilotController;
 
     public OI() {
         pilotController = new Joystick(0);
         coPilotController = new Joystick(1);
-    
-        //  8==========D
 
-        Button pilotButtonA = new JoystickButton(pilotController, RobotMap.joystickButtonA);
-        pilotButtonA.whenPressed(new HatchIntakeDown());
+        Button copilotButtonA = new JoystickButton(coPilotController, RobotMap.joystickButtonA);
+        copilotButtonA.whileHeld(new HatchIntakeDown());
         
-        Button pilotButtonY = new JoystickButton(pilotController, RobotMap.joystickButtonY);
-        pilotButtonY.whenPressed(new HatchIntakeUp());
+        Button copilotButtonY = new JoystickButton(coPilotController, RobotMap.joystickButtonY);
+        copilotButtonY.whenPressed(new HatchIntakeUp());
 
         Button pilotButtonX = new JoystickButton(pilotController, RobotMap.joystickButtonX);
-        pilotButtonX.whenPressed(new ExtendIntake(2.6));
+        pilotButtonX.whenPressed(new ExtendIntake(1.4));
         
         Button pilotButtonB = new JoystickButton(pilotController, RobotMap.joystickButtonB);
-        pilotButtonB.whenPressed(new RetractIntake(1));
+        pilotButtonB.whenPressed(new RetractIntake(0.95));
 
+        Button pilotButtonY = new JoystickButton(pilotController, RobotMap.joystickButtonY);
+        pilotButtonY.whenPressed(new SwapDriveDirection());
+
+        Button pilotButtonA = new JoystickButton(pilotController, RobotMap.joystickButtonA);
+        pilotButtonA.toggleWhenPressed(new VisionCommand());
         
         
-        pilotButtonA.close();
-        pilotButtonY.close();
+        copilotButtonA.close();
+        copilotButtonY.close();
         pilotButtonX.close();
         pilotButtonB.close();
+        pilotButtonY.close();
+        pilotButtonA.close();
+
     }
 
     public Joystick getPilotController() {
