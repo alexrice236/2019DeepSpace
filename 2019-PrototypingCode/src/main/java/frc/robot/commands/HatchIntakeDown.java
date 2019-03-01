@@ -7,19 +7,17 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
  * Add your docs here.
  */
-public class HatchIntakeDown extends TimedCommand {
+public class HatchIntakeDown extends Command {
   
-  private static double time = 0.8;
 
   public HatchIntakeDown() {
-    super(time);
-    requires(Robot.hatchIntake);
+     requires(Robot.hatchIntake);
 
     
   }
@@ -38,7 +36,7 @@ public class HatchIntakeDown extends TimedCommand {
   // Called once after timeout
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return false;  //Robot.hatchIntake.getLowerHatchLimit();
   }
 
   @Override

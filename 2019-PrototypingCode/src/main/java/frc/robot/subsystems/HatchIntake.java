@@ -25,8 +25,12 @@ public class HatchIntake extends Subsystem {
   public void initDefaultCommand() {
    
   }
-  public boolean getLimitBoolean(){
-    return !Robot.limitSwitch1.get();
+  public boolean getUpperHatchLimit(){
+    return !Robot.upperHatchLimitSwitch.get();
+  }
+
+  public boolean getLowerHatchLimit(){
+    return !Robot.lowerHatchLimitSwitch.get();
   }
 
   public void intakeUp() {

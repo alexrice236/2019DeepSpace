@@ -38,7 +38,7 @@ public class VisionCommand extends Command {
   @Override
   protected void execute() {
     super.execute();
-    double speed = -Robot.oi.getPilotController().getRawAxis(RobotMap.leftJoystickYAxis) * 0.8;
+    double speed = Robot.oi.getPilotController().getRawAxis(RobotMap.leftJoystickYAxis) * 0.8;
     double rotation = 0.0;
     if((Robot.distanceSensor.getVoltage()/5)*512 > Robot.MIN_DISTANCE ){
       rotation = xEntry.getDouble(0) * 64;

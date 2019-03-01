@@ -15,12 +15,13 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.AutoDriveForward;
+import frc.robot.commands.DriveWithJoysticks;
+import frc.robot.commands.ExtendIntake;
+import frc.robot.commands.HatchIntakeUp;
+import frc.robot.commands.SwapDriveDirection;
 import frc.robot.subsystems.CargoIntake;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.HatchIntake;
@@ -43,25 +44,33 @@ public class Robot extends TimedRobot {
   public static IntakeExtender intakeExtender;
   public static CargoIntake cargoIntake;
 
+  public static DriveWithJoysticks drive;
+  public static SwapDriveDirection swap;
+  public static HatchIntakeUp upCommand;
+  
+  public static ExtendIntake extend;
+
+  public static Trigger.ButtonScheduler upButton;
+
   public static OI oi;
 
   public static UsbCamera frontCamera;
 	public static UsbCamera backCamera;
 	public static VideoSink cameraServer;
 
-  public SendableChooser<Command> autoChooser;
-
   
   public static AnalogInput actuatorPosition;
   public static AnalogInput distanceSensor;
-  public static DigitalInput limitSwitch1;
-  public static DigitalInput lowerLimitSwitch;
-  public static DigitalInput upperLimitSwitch;
+  public static DigitalInput lowerHatchLimitSwitch;
+  public static DigitalInput upperHatchLimitSwitch;
+  public static DigitalInput lowerCargoLimitSwitch;
+  public static DigitalInput upperCargoLimitSwitch;
   public static final int IMG_WIDTH = 320;
   public static final int IMG_HEIGHT = 240;
   public double centerX = 0; 
   public boolean prevTrigger = false;
   public static final int   MIN_DISTANCE = 30;
+  public static final int MAX_CURRENT_NEO = 40;
 
   public final Object imgLock = new Object();
 
@@ -80,17 +89,28 @@ public class Robot extends TimedRobot {
     intakeExtender = new IntakeExtender();
     cargoIntake = new CargoIntake();
 
+    drive = new DriveWithJoysticks();
+    swap = new SwapDriveDirection();
+    extend = new ExtendIntake(1.6);
+
+    upButton = new Trigger.ButtonScheduler(){
+    
+      @Override
+      public void execute() {
+        upCommand.start();
+      }
+    };
+
     oi = new OI();
 
     actuatorPosition = new AnalogInput(0);
     distanceSensor = new AnalogInput(1);
-    
-    limitSwitch1 = new DigitalInput(0);
-    lowerLimitSwitch = new DigitalInput(1);
-    upperLimitSwitch = new DigitalInput(2);
+    upperHatchLimitSwitch = new DigitalInput(0);
+    lowerHatchLimitSwitch = new DigitalInput(4);
+    lowerCargoLimitSwitch = new DigitalInput(1);
+    upperCargoLimitSwitch = new DigitalInput(2);
   
     
-    autoChooser = new SendableChooser<>();
 
     NetworkTableInstance ntinst = NetworkTableInstance.getDefault();
 
@@ -98,23 +118,15 @@ public class Robot extends TimedRobot {
     
     SmartDashboard.putData(distanceSensor);
 
-    SmartDashboard.putData(limitSwitch1);
-    SmartDashboard.putData(lowerLimitSwitch);
-    SmartDashboard.putData(upperLimitSwitch);
-
-    Shuffleboard.getTab("Auto Options")
-      .add("Drive 6 feet", new AutoDriveForward(74));
-
-    Shuffleboard.getTab("Auto Options")
-      .add("Pass HAB line (lvl. 1)", new AutoDriveForward(48));
-
-    Shuffleboard.getTab("Auto Options")
-      .add("Pass HAB line (lvl. 2)", new AutoDriveForward(100));
+    SmartDashboard.putData(upperHatchLimitSwitch);
+    SmartDashboard.putData(upperCargoLimitSwitch);
+    SmartDashboard.putData(lowerCargoLimitSwitch);
     
 
     frontCamera = CameraServer.getInstance().startAutomaticCapture(RobotMap.frontCamera);
 		frontCamera.setResolution(IMG_WIDTH, IMG_HEIGHT);
     frontCamera.setExposureAuto();
+    
 
     MjpegServer mj = new MjpegServer("Camera1", 7072);
     mj.setSource(frontCamera);
@@ -161,8 +173,10 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
   
     drivetrain.resetEncoders();
-    autoChooser.getSelected().start();
   
+    drive.start();
+    swap.start();
+    extend.start();
   }
 
   /**
@@ -171,7 +185,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
-    }
+  }
   
 
   /**

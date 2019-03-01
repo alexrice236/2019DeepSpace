@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+//import frc.robot.RobotMap;
 
 public class MoveCargo extends Command {
   
@@ -38,6 +39,7 @@ public class MoveCargo extends Command {
   @Override
   protected void end() {
     Robot.cargoIntake.cargoIntakeStop();
+    Robot.cargoIntake.cargoExtensionStop();
   }
 
   // Called when another command which requires one or more of the same
